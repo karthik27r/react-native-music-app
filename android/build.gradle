@@ -49,6 +49,10 @@ allprojects {
         }
         google()
         maven { url 'https://www.jitpack.io' }
-        jcenter()
+        jcenter(){
+            content{
+                includeGroup("com.google.android.exoplayer")
+            }
+        }
     }
 }

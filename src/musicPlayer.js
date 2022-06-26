@@ -1,7 +1,7 @@
 import React, {useRef, useEffect, useState } from "react";
 import {View,SafeAreaView,Text,Image,FlatList,Dimensions,Animated,StyleSheet,} from "react-native";
 import TrackPlayer from "react-native-track-player";
-import songs from "./Data.json";
+import songs from "./Data";
 import Controller from "./Controller";
 
 const {width,height}=Dimensions.get("window");
@@ -26,7 +26,7 @@ export default function Player(){
         
         TrackPlayer.setupPlayer().then(async()=>{
             console.log('Player Ready');
-            // TrackPlayer.add(songs)
+            await TrackPlayer.add(songs)
             // TrackPlayer.play()
         });
 
