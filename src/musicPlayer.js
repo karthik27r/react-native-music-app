@@ -16,18 +16,38 @@ export default function Player(){
 
     const postion = useRef(Animated.divide(scrollx,width)).current;
 
+    const TRACK_PLAYER_CONTROLS_OPTS = {
+        waitforBuffer: true,
+        stopWithApp: false,
+        alwaysPauseOnInterruption: true,
+        capabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
+          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+          TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+          TrackPlayer.CAPABILITY_SEEK_TO,
+        ],
+        compactCapabilities: [
+          TrackPlayer.CAPABILITY_PLAY,
+          TrackPlayer.CAPABILITY_PAUSE,
+          TrackPlayer.CAPABILITY_SKIP_TO_NEXT,
+          TrackPlayer.CAPABILITY_SKIP_TO_PREVIOUS,
+        ],
+      };
+
     useEffect(()=>{
-        
         
         scrollx.addListener(({value})=>{
             const val = Math.round(value/width);
             setSongIndex(val);
         });
-        
+
+        // TrackPlayer.destroy();
+
         TrackPlayer.setupPlayer().then(async()=>{
             console.log('Player Ready');
-            await TrackPlayer.add(songs)
-            // TrackPlayer.play()
+            await TrackPlayer.add(songs);
+            TrackPlayer.play();
         });
 
         return()=>{
