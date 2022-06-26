@@ -57,7 +57,7 @@ export default function Player(){
                             }}>
                                 <Animated.Image
                                     source={{uri: item.image}}
-                                    style={{alignItems:"flex-start",width:320, height:320, borderRadius:5}}/>
+                                    style={{marginRight:"auto", marginLeft:"auto",width:320, height:320, borderRadius:5}}/>
             </Animated.View>
         );
 
@@ -65,9 +65,9 @@ export default function Player(){
 
     return(
         <SafeAreaView style={StyleSheet.container}>
-            <View>
-                <Text style={style.mainTitle}>UniPlay</Text>
-            </View>
+            {/* <View>
+                <Text style={style.mainTitle}></Text>
+            </View> */}
             <SafeAreaView style={{alignItems:"center", height:320}}>
                 <Animated.FlatList
                     ref={slider}
@@ -95,6 +95,7 @@ export default function Player(){
 
 const style = StyleSheet.create({
     title: {
+      paddingTop:10,
       fontSize: 30,
       textAlign: "center",
       textTransform: "capitalize",
