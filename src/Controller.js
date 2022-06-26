@@ -1,8 +1,8 @@
 import React from "react";
-import {View,TouchableOpacity,Stylesheet}from "react-native";
-import {Icons} from 'react-native-vector-icons/MaterialIcons';
+import {View,TouchableOpacity,StyleSheet}from "react-native";
+import Icons from 'react-native-vector-icons/MaterialIcons';
 
-export default function controller({onNext,onPrev}){
+export default function Controller({onNext,onPrev}){
     return (
         <View style = {styles.container}>
             <TouchableOpacity onPress ={onPrev}>
@@ -14,10 +14,10 @@ export default function controller({onNext,onPrev}){
             </TouchableOpacity>
 
             <TouchableOpacity onPress ={onNext}>
-                <Icons name ="skip-previous" size={45}/>
+                <Icons name ="skip-next" size={45}/>
             </TouchableOpacity>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({

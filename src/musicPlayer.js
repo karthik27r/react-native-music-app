@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, {useRef, useEffect, useState } from "react";
 import {View,SafeAreaView,Text,Image,FlatList,Dimensions,Animated,StyleSheet,} from "react-native";
 
 import songs from "./Data.json";
-import controller from "./Controller";
+import Controller from "./Controller";
 
 const {width,height}=Dimensions.get("window");
 
 export default function Player(){
 
-    const scrollx = useRef(new Animated.vvalue(0)).current;
+    const scrollx = useRef(new Animated.Value(0)).current;
 
     const slider = useRef(null);
 
     const [songIndex,setSongIndex]=useState(0);
 
-    const position = useRef(Animated.divide(scrollx,width)).current;
+    const postion = useRef(Animated.divide(scrollx,width)).current;
 
     useEffect(()=>{
         
@@ -25,7 +25,7 @@ export default function Player(){
         });
 
         return()=>{
-            scrollX.removeAllListeners();
+            scrollx.removeAllListeners();
         };
 
 
@@ -46,7 +46,7 @@ export default function Player(){
     const renderItem=({index,item})=>{
         return(
             <Animated.View style={{alignItmes:"center",
-                                   width:width,
+                                   width: width,
                                    transform:[{
                                     translateX:Animated.multiply(
                                         Animated.add(postion,-index),
@@ -56,8 +56,8 @@ export default function Player(){
                                 ],
                             }}>
                                 <Animated.Image
-                                    source={item.image}
-                                    style={{width:320, height:320, borderRadius:5}}/>
+                                    source={{uri: item.image}}
+                                    style={{alignItems:"flex-start",width:320, height:320, borderRadius:5}}/>
             </Animated.View>
         );
 
@@ -65,7 +65,10 @@ export default function Player(){
 
     return(
         <SafeAreaView style={StyleSheet.container}>
-            <SafeAreaView style={{height:320}}>
+            <View>
+                <Text style={style.mainTitle}>UniPlay</Text>
+            </View>
+            <SafeAreaView style={{alignItems:"center", height:320}}>
                 <Animated.FlatList
                     ref={slider}
                     horizontal
@@ -80,20 +83,19 @@ export default function Player(){
                         {useNativeDriver:true}
                     )}/>
             </SafeAreaView>
-            
             <View>
                 <Text style={style.title}>{songs[songIndex].title}</Text>
-                <Text style={style.title}>{songs[songIndex].artist}</Text>
+                <Text style={style.artist}>{songs[songIndex].artist}</Text>
             </View>
 
-            <controller onNext={goNext} onPrev={goPrev}/>
+            <Controller onNext={goNext} onPrev={goPrev}/>
         </SafeAreaView>
     );
 }
 
 const style = StyleSheet.create({
     title: {
-      fontSize: 28,
+      fontSize: 30,
       textAlign: "center",
       textTransform: "capitalize",
     },
@@ -103,8 +105,14 @@ const style = StyleSheet.create({
       textTransform: "capitalize",
     },
     container: {
+        alignItems:"center",
       justifyContent: "space-evenly",
       height: height,
       maxHeight: 500,
     },
+    mainTitle: {
+        paddingBottom:10,
+        fontSize:40,
+        textAlign:"center",
+      },
   });
