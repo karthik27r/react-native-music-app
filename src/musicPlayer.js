@@ -1,6 +1,6 @@
 import React, {useRef, useEffect, useState } from "react";
 import {View,SafeAreaView,Text,Image,FlatList,Dimensions,Animated,StyleSheet,} from "react-native";
-
+import TrackPlayer from "react-native-track-player";
 import songs from "./Data.json";
 import Controller from "./Controller";
 
@@ -22,6 +22,12 @@ export default function Player(){
         scrollx.addListener(({value})=>{
             const val = Math.round(value/width);
             setSongIndex(val);
+        });
+        
+        TrackPlayer.setupPlayer().then(async()=>{
+            console.log('Player Ready');
+            // TrackPlayer.add(songs)
+            // TrackPlayer.play()
         });
 
         return()=>{
@@ -65,9 +71,9 @@ export default function Player(){
 
     return(
         <SafeAreaView style={StyleSheet.container}>
-            {/* <View>
+            <View>
                 <Text style={style.mainTitle}></Text>
-            </View> */}
+            </View>
             <SafeAreaView style={{alignItems:"center", height:320}}>
                 <Animated.FlatList
                     ref={slider}
@@ -99,11 +105,13 @@ const style = StyleSheet.create({
       fontSize: 30,
       textAlign: "center",
       textTransform: "capitalize",
+      color:'white',
     },
     artist: {
       fontSize: 18,
       textAlign: "center",
       textTransform: "capitalize",
+      color:'white',
     },
     container: {
         alignItems:"center",
